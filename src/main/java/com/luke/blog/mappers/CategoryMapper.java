@@ -1,7 +1,8 @@
-package com.luke.blog.domain.mappers;
+package com.luke.blog.mappers;
 
 import com.luke.blog.domain.PostStatus;
 import com.luke.blog.domain.dtos.CategoryDto;
+import com.luke.blog.domain.dtos.CreateCategoryRequest;
 import com.luke.blog.domain.entity.Category;
 import com.luke.blog.domain.entity.Post;
 import org.mapstruct.Mapper;
@@ -16,6 +17,8 @@ public interface CategoryMapper {
 
     @Mapping(target = "postCount", source = "posts", qualifiedByName = "calculatePostCount")
     CategoryDto toDto(Category category);
+
+    Category toEntity(CreateCategoryRequest  createCategoryRequest);
 
     @Named("calculatedPostCount")
     default long calculatePostCount(List<Post>posts) {

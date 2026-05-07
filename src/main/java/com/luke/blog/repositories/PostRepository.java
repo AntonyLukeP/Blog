@@ -1,4 +1,4 @@
-package com.luke.blog.domain.repositories;
+package com.luke.blog.repositories;
 
 import com.luke.blog.domain.entity.Post;
 import jakarta.persistence.Entity;

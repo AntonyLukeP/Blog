@@ -1,14 +1,14 @@
-package com.luke.blog.domain.controllers;
+package com.luke.blog.controllers;
 
 import com.luke.blog.domain.dtos.CategoryDto;
+import com.luke.blog.domain.dtos.CreateCategoryRequest;
 import com.luke.blog.domain.entity.Category;
-import com.luke.blog.domain.mappers.CategoryMapper;
-import com.luke.blog.domain.services.CategoryService;
+import com.luke.blog.mappers.CategoryMapper;
+import com.luke.blog.services.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +26,15 @@ public class CategoryController {
                     .map(category -> categoryMapper.toDto(category))
                     .toList();
             return ResponseEntity.ok(categories);
+    }
+
+    @PostMapping
+    public ResponseEntity<CategoryDto> createCategory(
+            @Valid @RequestBody CreateCategoryRequest createCategoryRequest
+            ){
+        Category category = categoryMapper.toEntity(createCategoryRequest);
+        Category savedCategory = categoryService.createCategory(category);
+        return ResponseEntity.ok(categoryMapper.toDto(savedCategory));
     }
 
 }
