@@ -7,10 +7,13 @@ import com.luke.blog.mappers.CategoryMapper;
 import com.luke.blog.services.CategoryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/v1/categories")
@@ -36,5 +39,13 @@ public class CategoryController {
         Category savedCategory = categoryService.createCategory(category);
         return ResponseEntity.ok(categoryMapper.toDto(savedCategory));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable UUID id)
+    {
+        categoryService.deleteCategory(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 
 }
