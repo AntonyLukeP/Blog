@@ -20,7 +20,7 @@ public interface CategoryMapper {
 
     Category toEntity(CreateCategoryRequest  createCategoryRequest);
 
-    @Named("calculatedPostCount")
+    @Named("calculatePostCount")
     default long calculatePostCount(List<Post>posts) {
         if(posts == null || posts.isEmpty()) {
             return 0;
