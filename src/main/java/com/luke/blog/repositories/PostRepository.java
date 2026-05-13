@@ -4,6 +4,7 @@ import com.luke.blog.domain.PostStatus;
 import com.luke.blog.domain.entity.Category;
 import com.luke.blog.domain.entity.Post;
 import com.luke.blog.domain.entity.Tag;
+import com.luke.blog.domain.entity.User;
 import jakarta.persistence.Entity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -17,4 +18,5 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     List<Post> findByStatusAndCategory(PostStatus status, Category category);
     List<Post> findByStatusAndTagsContaining(PostStatus status, Tag tag);
     List<Post> findByStatus(PostStatus status);
+    List<Post> findAllByAuthorAndStatus(User author, PostStatus status);
 }

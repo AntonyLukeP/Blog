@@ -4,6 +4,7 @@ import com.luke.blog.domain.PostStatus;
 import com.luke.blog.domain.entity.Category;
 import com.luke.blog.domain.entity.Post;
 import com.luke.blog.domain.entity.Tag;
+import com.luke.blog.domain.entity.User;
 import com.luke.blog.repositories.PostRepository;
 import com.luke.blog.services.CategoryService;
 import com.luke.blog.services.PostService;
@@ -47,4 +48,9 @@ public class PostServiceImpl implements PostService {
         }
             return postRepository.findByStatus(PostStatus.PUBLISHED);
      }
+
+    @Override
+    public List<Post> getDraftPosts(User user) {
+        return postRepository.findAllByAuthorAndStatus(user, PostStatus.DRAFT);
+    }
 }
