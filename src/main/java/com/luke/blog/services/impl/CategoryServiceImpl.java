@@ -3,6 +3,7 @@ package com.luke.blog.services.impl;
 import com.luke.blog.domain.entity.Category;
 import com.luke.blog.repositories.CategoryRespository;
 import com.luke.blog.services.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -42,5 +43,12 @@ public class CategoryServiceImpl implements CategoryService {
                 }
             categoryRespository.deleteById(id);
         }
+    }
+
+    @Override
+    public Category getCategoryById(UUID id){
+        return categoryRespository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Category with id " + id + " not found")
+        );
     }
 }

@@ -1,12 +1,11 @@
 package com.luke.blog.controllers;
 
 import com.luke.blog.domain.dtos.CreateTagsRequest;
-import com.luke.blog.domain.dtos.TagResponse;
+import com.luke.blog.domain.dtos.TagDto;
 import com.luke.blog.domain.entity.Tag;
 import com.luke.blog.mappers.TagMapper;
 import com.luke.blog.repositories.TagRepository;
 import com.luke.blog.services.TagService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +26,15 @@ public class TagController {
     @GetMapping
     public ResponseEntity<?> getTags() {
         List<Tag> tags = tagService.getTags();
-        List<TagResponse> tagResponses = tags.stream().map(tagMapper::toTagResponse).toList();
-        return ResponseEntity.ok(tagResponses);
+        List<TagDto> tagRespons = tags.stream().map(tagMapper::toTagResponse).toList();
+        return ResponseEntity.ok(tagRespons);
     }
 
     @PostMapping
-    public ResponseEntity<List<TagResponse>> createTag(@Valid @RequestBody CreateTagsRequest  createTagsRequest) {
+    public ResponseEntity<List<TagDto>> createTag(@Valid @RequestBody CreateTagsRequest  createTagsRequest) {
             List<Tag>  savedTags = tagService.createTags(createTagsRequest.getNames());
-            List<TagResponse> createdTagResponses = savedTags.stream().map(tagMapper::toTagResponse).collect(Collectors.toList());
-            return ResponseEntity.ok(createdTagResponses);
+            List<TagDto> createdTagRespons = savedTags.stream().map(tagMapper::toTagResponse).collect(Collectors.toList());
+            return ResponseEntity.ok(createdTagRespons);
     }
 
     @DeleteMapping(path = "/{id}")

@@ -3,6 +3,7 @@ package com.luke.blog.services.impl;
 import com.luke.blog.domain.entity.Tag;
 import com.luke.blog.repositories.TagRepository;
 import com.luke.blog.services.TagService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,13 @@ public class TagServiceImpl implements TagService {
                     tagRepository.delete(tag);
                 }
 
+        );
+    }
+
+    @Override
+    public Tag getTagById(UUID tagid) {
+        return tagRepository.findById(tagid).orElseThrow(
+                () -> new EntityNotFoundException("Tag with id " + tagid + " not found")
         );
     }
 
