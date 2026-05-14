@@ -1,5 +1,7 @@
 package com.luke.blog.controllers;
 
+import com.luke.blog.domain.CreatePostRequest;
+import com.luke.blog.domain.dtos.CreatePostRequestDto;
 import com.luke.blog.domain.dtos.PostDto;
 import com.luke.blog.domain.entity.Post;
 import com.luke.blog.domain.entity.User;
@@ -40,6 +42,18 @@ public class  PostController {
         List<Post> draftPosts = postService.getDraftPosts(loggedInUser);
         List<PostDto> postDtos = draftPosts.stream().map(postMapper::toDto).toList();
         return ResponseEntity.ok(postDtos);
+    }
+
+    @PostMapping
+    public ResponseEntity<PostDto> createPost(
+            @RequestAttribute UUID userId,
+            @RequestBody CreatePostRequestDto createPostRequestDto
+            ){
+        User loggedInUser = userService.getUserById(userId);
+        CreatePostRequest createPostRequest = postMapper.toCreatePostrequest(createPostRequestDto);
+        Post createdPost = postService.createPost(loggedInUser, createPostRequest);
+        PostDto createdPostDto = postMapper.toDto(createdPost);
+        return ResponseEntity.ok(createdPostDto);
     }
 
 }

@@ -18,11 +18,11 @@ public class PostDto {
     private UUID id;
     private String title;
     private String content;
-    // TODO: Author
+    private AuthorDto author;
     private CategoryDto category;
     private Set<TagDto> tags;
     private Integer readingTime;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private PostStatus PostStatus;
+    private PostStatus postStatus;
 }
