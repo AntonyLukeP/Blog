@@ -1,8 +1,10 @@
 package com.luke.blog.mappers;
 
 import com.luke.blog.domain.CreatePostRequest;
+import com.luke.blog.domain.UpdatePostRequest;
 import com.luke.blog.domain.dtos.CreatePostRequestDto;
 import com.luke.blog.domain.dtos.PostDto;
+import com.luke.blog.domain.dtos.UpdatePostRequestDto;
 import com.luke.blog.domain.entity.Post;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,4 +19,6 @@ public interface PostMapper   {
     PostDto toDto(Post post);
 
     CreatePostRequest toCreatePostrequest(CreatePostRequestDto dto);
+
+    UpdatePostRequest  toUpdatePostRequest(UpdatePostRequestDto dto);
 }
